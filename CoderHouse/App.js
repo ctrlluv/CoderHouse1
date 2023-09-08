@@ -1,5 +1,6 @@
-import { View, TextInput, Button, StyleSheet, Text, FlatList, Modal, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react'
+import Modal from './components/Modal'
+import { View, TextInput, Button, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [textValue, setTextValue] = useState('')
@@ -42,6 +43,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Shopping List</Text>
       <View style={styles.inputContainer}>
         <TextInput 
          placeholder='New Item'
@@ -49,7 +51,7 @@ export default function App() {
          value={textValue}
          onChangeText={onHandleChangeItem}
         />
-        <Button title='+ADD' color={'#0099ff'} onPress={addItem} />
+        <Button title='+ADD' color={'#33ff99'} onPress={addItem} />
       </View>
       <View style={styles.listContainer}>
         <FlatList
@@ -58,25 +60,15 @@ export default function App() {
         keyExtractor={item => item.id}
       />
       </View>
-      <Modal visible={modalVisible} animationType='fade'>
-        <View style={styles.modalTitle}>
-          <Text>Mi Modal</Text>
-        </View>
-        <View style={styles.modalMessage}>
-          <Text>Estas seguro de eliminar este item?</Text>
-        </View>
-        <View style={styles.modalButton}>
-          <Button title='confirmar' onPress={onHandelDelete}/>
-        </View>
-      </Modal>
+      <Modal modalVisible={modalVisible} onHandelDelete={onHandelDelete}/>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     padding: 30,
-    backgroundColor: '#66ccff',
+    backgroundColor: 'black',
     paddingTop: 80,
     flex: 1,
   },
@@ -84,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     borderRadius: 5,
   },
   input: {
@@ -95,9 +87,9 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   TextContainer: {
-    borderColor: '#0099ff',
+    borderColor: '#33ff99',
     alignItems: "left",
-    backgroundColor: "#0099ff",
+    backgroundColor: "#33ff99",
     borderWidth: 2,
     marginVertical: 15,
     width: "100%",
@@ -105,21 +97,16 @@ const styles = StyleSheet.create({
   },
   Text:{
     fontSize: 22,
-    color: "white",
+    color: "black",
     marginLeft: 10,
   },
-  modalTitle: {
-    backgroundColor: '#ccc',
-    color: '#fff',
-    fontSize: 18,
+  listContainer: {
+    marginTop: 25,
   },
-  modalMessage: {
-    marginBottom: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalButton: {
-    marginTop: 15,
+  title: {
+    color: '#33ff99',
+    fontSize: 35,
+    marginBottom: 25,
   }
 })
 
